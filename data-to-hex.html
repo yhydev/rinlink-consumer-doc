@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>电信IOT可视化数据还原为字节数据</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container" style="margin-top: 20px">
+		
+		<div class="row">
+			<div class="col-md-5">
+			<textarea class="col-md-12" id="t1" style="height: 300px" placeholder="电信IOT数据，输入内容后自动转换"></textarea>	
+			</div>
+
+			<div class="col-md-2"></div>
+
+			<div class="col-md-5">
+			<textarea class="col-md-12" id="t2" style="height: 300px" placeholder="字节结果..."></textarea>
+			</div>
+
+		</div>
+
+	</div>
+
+<script type="text/javascript">
+	function telcom_to_hex(data) {
+	i = 0;
+	var telcomAscii = eval("\""+data+"\"")
+	console.log(telcomAscii)
+	hexStr = ""
+	for(i = 0; i < telcomAscii.length; i++){
+
+		var charCode = telcomAscii.charAt(i).charCodeAt();
+
+		if(charCode < 0x10)
+			hexStr +=  "0"+charCode.toString(16)
+		else
+			hexStr += charCode.toString(16)
+
+	}
+	return hexStr
+}
+
+var t1 = document.getElementById("t1")
+var t2 = document.getElementById("t2")
+
+setInterval(function(){
+	t2.value = telcom_to_hex(t1.value)
+},200)
+</script>
+</body>
+</html>
