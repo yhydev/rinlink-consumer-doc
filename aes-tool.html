@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>AES 工具</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+		<div class="col-md-12">
+			<div class="row">
+				<div>
+					<label>
+				密钥：
+			</label>
+				</div>
+			<input id="key" type="text" style="width: 100%">
+			</div>
+			<div class="row">
+				<div>
+					<label> 
+				数据：
+			</label>
+				</div>
+			<textarea id="data" style="width: 100%"></textarea>
+			</div>
+			<div>
+				<button onclick="encrypt()">解密</button>	
+			</div>
+
+			<div class="row">
+				<div>
+					<label> 
+				HEX结果：
+			</label>
+				</div>
+				<div>
+					<textarea id="hex-result" style="width: 100%"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					<label> 
+				字符结果：
+			</label>
+				</div>
+				<div>
+				<textarea id="ascii-result" style="width: 100%"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+<script type="text/javascript">
+	
+	var keyEle = document.getElementById("key");
+	var dataEle = document.getElementById("data");
+	var hexResult = document.getElementById("hex-result");
+	var asciiResult = document.getElementById("ascii-result");
+
+
+	function encrypt(){
+
+		var keyBytes = aesjs.utils.hex.toBytes(keyEle.value)
+		var dataBytes = aesjs.utils.hex.toBytes(dataEle.value)
+		var aesEcb = new aesjs.ModeOfOperation.ecb(keyBytes);
+		var resultBytes = aesEcb.decrypt(dataBytes);
+
+		var resultValue = aesjs.utils.hex.fromBytes(resultBytes);
+		hexResult.value = resultValue
+
+		resultValue = aesjs.utils.utf8.fromBytes(resultBytes);
+		asciiResult.value = resultValue
+	}
+
+
+
+</script>
+</body>
+</html>
