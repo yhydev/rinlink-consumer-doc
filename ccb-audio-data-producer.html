@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+	<title>小音箱测试页面</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- http://ccb-audio-data-producer.rinlink.com/ccb_audio_data/post?PayLoad=11.0&DeviceCode=0000000001&MsgNum=1 -->
+
+<div class="container-fluid" onsubmit="return false">
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+			<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">金额：</label>
+    <input type="text" id="amount" class="form-control" id="exampleInputEmail1" placeholder="10.00">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">设备号：</label>
+    <input type="text" id="deviceId" class="form-control" id="exampleInputPassword1" placeholder="12345678901">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">MsgId：</label>
+    <input type="text" id="msgId" class="form-control" id="exampleInputPassword1" placeholder="0000000001">
+  </div>
+  
+  <button type="submit" id="submit" class="btn btn-default">提交</button>
+</form>
+
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$("#submit").click(function(){
+		var amount = $("#amount").val() == "" ? "10.00" : $("#amount").val();
+		var deviceId = $("#deviceId").val() == "" ? "12345678901" : $("#deviceId").val();
+		var msgId = $("#msgId").val() == "" ? "0000000001" : $("#msgId").val();
+
+		if (amount == 0) {}
+
+		var url = "http://ccb-audio-data-producer.rinlink.com/ccb_audio_data/post?PayLoad="+ amount +"&DeviceCode="+deviceId+"&MsgNum=" + msgId ;
+
+		$.ajax({
+			url:url,
+			success:function(res){	
+				alert("OK")
+			},failed:function(err){
+				alert(err)
+			}
+		})
+		/*$.get("http://ccb-audio-data-producer.rinlink.com/ccb_audio_data/post?PayLoad=11.0&DeviceCode=0000000001&MsgNum=1",function(res){
+				if(res == "OK"){
+					alert("success")
+				}
+		})*/
+	})
+</script>
+
+</body>
+</html>
